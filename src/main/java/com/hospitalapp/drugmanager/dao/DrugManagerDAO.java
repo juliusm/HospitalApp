@@ -4,7 +4,7 @@ import com.hospitalapp.drugmanager.domain.DrugCategory;
 
 import java.util.List;
 
-public interface DrugDAO {
+public interface DrugManagerDAO {
 
     void saveCategory(DrugCategory drugCategory);
 
