@@ -1,6 +1,5 @@
 package com.hospitalapp.drugmanager.dao;
 
-
 import com.hospitalapp.drugmanager.domain.DrugCategory;
 
 import java.util.List;
