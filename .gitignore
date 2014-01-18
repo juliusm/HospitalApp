@@ -18,3 +18,4 @@ HospitalApp.iml
 /.classpath
 /.project
 /.settings/**
+/target/**
