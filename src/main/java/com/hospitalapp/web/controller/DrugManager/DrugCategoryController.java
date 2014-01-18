@@ -9,15 +9,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 @Controller
 @RequestMapping("drugCategory")
 public class DrugCategoryController {
 
     private DrugManagerService drugManagerService;
-    private static final Logger LOGGER = Logger.getLogger(DrugCategoryController.class.getName());
 
     @Autowired
     public void setDrugManagerService(DrugManagerService drugManagerService){
@@ -39,7 +35,6 @@ public class DrugCategoryController {
     @RequestMapping(value = "save", method = RequestMethod.POST)
     public String save(@ModelAttribute DrugCategory drugCategory){
         drugManagerService.saveCategory(drugCategory);
-        LOGGER.log(Level.INFO, drugCategory.getId().toString());
         return "redirect:list";
     }
 }
