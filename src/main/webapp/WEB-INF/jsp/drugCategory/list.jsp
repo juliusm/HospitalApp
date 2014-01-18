@@ -1,8 +1,8 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
-    <title>Hospital App | Categories</title>
+    <title>Hospital App | Drug Categories</title>
 </head>
 <body>
 <table>
@@ -12,8 +12,8 @@
     </tr>
     <c:forEach items="${categories}" var="category">
     <tr>
-        <td>${category.id}</td>
-        <td>${category.name}</td>
+        <td><c:out value="${category.id}"/></td>
+        <td><c:out value="${category.name}"/></td>
     </tr>
     </c:forEach>
 </table>

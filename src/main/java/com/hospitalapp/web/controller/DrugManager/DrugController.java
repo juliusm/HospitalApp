@@ -1,4 +1,4 @@
-package com.hospitalapp.web.controller;
+package com.hospitalapp.web.controller.DrugManager;
 
 import com.hospitalapp.drugmanager.service.DrugManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping("drugmanager")
+@RequestMapping("drug")
 public class DrugController {
 
     private DrugManagerService drugManagerService;
@@ -16,12 +16,5 @@ public class DrugController {
     @Autowired
     public void setDrugManagerService(DrugManagerService drugManagerService){
         this.drugManagerService = drugManagerService;
-    }
-
-    @RequestMapping(value = {"/","listCategories"}, method = RequestMethod.GET)
-    public String listCategories(ModelMap modelMap){
-
-        modelMap.addAttribute("categories", drugManagerService.listCategories());
-        return "/drugmanager/listCategories";
     }
 }
