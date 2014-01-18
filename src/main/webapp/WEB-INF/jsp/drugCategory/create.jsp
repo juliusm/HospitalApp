@@ -12,7 +12,7 @@
     <tr>
         <td><springform:label path="name"/></td>
         <td><springform:input path="name"/></td>
-        <td><springform:errors path="name"/> </td>
+        <td><springform:errors path="name"/></td>
     </tr>
     <tr>
         <td colspan="2" align="center">
