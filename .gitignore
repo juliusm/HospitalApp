@@ -1,6 +1,20 @@
-*.class
+#IntelliJ idea-related files
+/.idea/ant.xml
+/.idea/compiler.xml
+/.idea/copyright/profiles_settings.xml
+/.idea/encodings.xml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/.name
+/.idea/uiDesigner.xml
+/.idea/vcs.xml
+/.idea/workspace.xml
+/.idea/artifacts/**
+/.idea/libraries/**
+/.idea/scopes/**
+HospitalApp.iml
 
-# Package Files #
-*.jar
-*.war
-*.ear
+#Eclipse-related files
+/.classpath
+/.project
+/.settings/**
