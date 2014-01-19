@@ -29,4 +29,19 @@ public class DrugManagerServiceImpl implements DrugManagerService{
     public void saveCategory(DrugCategory drugCategory) {
         drugManagerDAO.saveCategory(drugCategory);
     }
+
+    @Override
+    public DrugCategory findDrugCategoryById(Long id) {
+        return drugManagerDAO.findCategoryById(id);
+    }
+
+    @Override
+    public void updateDrugCategory(DrugCategory drugCategory) {
+        drugManagerDAO.updateCategory(drugCategory);
+    }
+
+    @Override
+    public void deleteDrugCategory(DrugCategory drugCategory) {
+        drugManagerDAO.deleteCategory(drugCategory);
+    }
 }

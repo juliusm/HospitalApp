@@ -10,7 +10,7 @@ public interface DrugManagerDAO {
 
     void updateCategory(DrugCategory drugCategory);
 
-    void findCategoryById(Long id);
+    DrugCategory findCategoryById(Long id);
 
     List<DrugCategory> listCategories();
 

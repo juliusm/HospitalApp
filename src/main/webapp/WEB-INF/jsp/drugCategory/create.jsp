@@ -7,7 +7,7 @@
     <title>Hospital App | Add Drug Category</title>
 </head>
 <body>
-<springform:form commandName="drugCategory" action="save">
+<springform:form modelAttribute="drugCategory" action="/drugCategory/save">
 <table>
     <tr>
         <td><springform:label path="name"/></td>

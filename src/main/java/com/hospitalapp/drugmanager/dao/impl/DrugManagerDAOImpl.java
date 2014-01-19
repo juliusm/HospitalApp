@@ -27,12 +27,13 @@ public class DrugManagerDAOImpl implements DrugManagerDAO {
 
     @Override
     public void updateCategory(DrugCategory drugCategory) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        sessionFactory.getCurrentSession().update(drugCategory);
     }
 
     @Override
-    public void findCategoryById(Long id) {
-        //To change body of implemented methods use File | Settings | File Templates.
+    public DrugCategory findCategoryById(Long id) {
+        Session session = sessionFactory.getCurrentSession();
+        return (DrugCategory)session.get(DrugCategory.class, id);
     }
 
     @Override
@@ -45,6 +46,6 @@ public class DrugManagerDAOImpl implements DrugManagerDAO {
 
     @Override
     public void deleteCategory(DrugCategory drugCategory) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        sessionFactory.getCurrentSession().delete(drugCategory);
     }
 }
