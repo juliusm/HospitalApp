@@ -15,6 +15,7 @@
 /.idea/dictionaries/**
 HospitalApp.iml
 /.idea/dictionaries/**
+/.idea/**
 
 #Eclipse-related files
 /.classpath

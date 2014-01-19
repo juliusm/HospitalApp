@@ -35,6 +35,8 @@
         <property name="annotatedClasses">
             <list>
                 <value>com.hospitalapp.drugmanager.domain.DrugCategory</value>
+                <value>com.hospitalapp.uam.domain.User</value>
+                <value>com.hospitalapp.uam.domain.Role</value>
             </list>
         </property>
     </bean>

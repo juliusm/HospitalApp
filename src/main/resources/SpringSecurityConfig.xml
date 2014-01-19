@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/security
+       http://www.springframework.org/schema/security/spring-security.xsd">
+
+
+    <security:global-method-security pre-post-annotations="enabled"
+                            secured-annotations="enabled" />
+
+    <security:http use-expressions="true" access-denied-page="/accessdenied.jsp">
+
+        <security:intercept-url pattern="/js/**" access="isAnonymous()" />
+        <security:intercept-url pattern="/css/**" access="isAnonymous()" />
+        <security:intercept-url pattern="/images/**" access="isAnonymous()" />
+        <security:intercept-url pattern="/login/**" access="isAnonymous()" />
+        <security:intercept-url pattern="/**" access="isAuthenticated()" />
+
+        <security:form-login login-page="/login/auth" default-target-url="/"
+                             authentication-failure-url="/login/denied"/>
+        <security:logout logout-url="/logout/logout"/>
+    </security:http>
+
+    <security:authentication-manager>
+        <security:authentication-provider user-service-ref="userDetailService">
+            <security:password-encoder hash="md5" />
+        </security:authentication-provider>
+    </security:authentication-manager>
+</beans>

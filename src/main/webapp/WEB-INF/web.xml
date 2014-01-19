@@ -10,8 +10,13 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>
             classpath:ApplicationContext.xml
+            classpath:SpringSecurityConfig.xml
         </param-value>
     </context-param>
+    <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
     <filter>
         <filter-name>OpenSessionInViewFilter</filter-name>
         <filter-class>org.springframework.orm.hibernate4.support.OpenSessionInViewFilter</filter-class>
@@ -20,7 +25,10 @@
             <param-value>sessionFactory</param-value>
         </init-param>
     </filter>
-
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
     <filter-mapping>
         <filter-name>OpenSessionInViewFilter</filter-name>
         <servlet-name>spring-dispatcher</servlet-name>
