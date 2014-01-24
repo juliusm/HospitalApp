@@ -5,9 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 @Entity(name = "app_user")
 public class User implements UserDetails, Serializable {
@@ -29,7 +27,7 @@ public class User implements UserDetails, Serializable {
     @JoinTable(name = "user_role",
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "role_id")})
-    private List<Role> roles = new LinkedList<Role>();
+    private Set<Role> roles = new HashSet<Role>();
 
     public Long getId() {
         return id;
@@ -63,11 +61,11 @@ public class User implements UserDetails, Serializable {
         this.lastName = lastName;
     }
 
-    public List<Role> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<Role> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 
@@ -128,5 +126,65 @@ public class User implements UserDetails, Serializable {
 
     public void setEnabled(boolean enabled){
         this.enabled = enabled;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof User)) {
+            return false;
+        }
+
+        User user = (User) o;
+
+        if (accountNonExpired != user.accountNonExpired) {
+            return false;
+        }
+        if (accountNonLocked != user.accountNonLocked) {
+            return false;
+        }
+        if (credentialsNonExpired != user.credentialsNonExpired) {
+            return false;
+        }
+        if (enabled != user.enabled) {
+            return false;
+        }
+        if (firstName != null ? !firstName.equals(user.firstName) : user.firstName != null) {
+            return false;
+        }
+        if (lastName != null ? !lastName.equals(user.lastName) : user.lastName != null) {
+            return false;
+        }
+        if (middleName != null ? !middleName.equals(user.middleName) : user.middleName != null) {
+            return false;
+        }
+        if (password != null ? !password.equals(user.password) : user.password != null) {
+            return false;
+        }
+        if (getRoles() != null ? !getRoles().equals(user.getRoles()) : user.getRoles() != null) {
+            return false;
+        }
+        if (username != null ? !username.equals(user.username) : user.username != null) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = firstName != null ? firstName.hashCode() : 0;
+        result = 31 * result + (middleName != null ? middleName.hashCode() : 0);
+        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+        result = 31 * result + (username != null ? username.hashCode() : 0);
+        result = 31 * result + (password != null ? password.hashCode() : 0);
+        result = 31 * result + (accountNonExpired ? 1 : 0);
+        result = 31 * result + (accountNonLocked ? 1 : 0);
+        result = 31 * result + (credentialsNonExpired ? 1 : 0);
+        result = 31 * result + (enabled ? 1 : 0);
+        result = 31 * result + (getRoles() != null ? getRoles().hashCode() : 0);
+        return result;
     }
 }

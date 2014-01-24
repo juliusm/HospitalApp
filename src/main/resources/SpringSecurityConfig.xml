@@ -7,22 +7,32 @@
        http://www.springframework.org/schema/security
        http://www.springframework.org/schema/security/spring-security.xsd">
 
-
-    <security:global-method-security pre-post-annotations="enabled"
-                            secured-annotations="enabled" />
-
-    <security:http use-expressions="true" access-denied-page="/accessdenied.jsp">
-
-        <security:intercept-url pattern="/js/**" access="isAnonymous()" />
-        <security:intercept-url pattern="/css/**" access="isAnonymous()" />
-        <security:intercept-url pattern="/images/**" access="isAnonymous()" />
-        <security:intercept-url pattern="/login/**" access="isAnonymous()" />
-        <security:intercept-url pattern="/**" access="isAuthenticated()" />
-
+    <security:http access-decision-manager-ref="accessDecisionManager" access-denied-page="/accessdenied.jsp">
+        <security:intercept-url pattern="/js/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+        <security:intercept-url pattern="/css/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+        <security:intercept-url pattern="/images/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+        <security:intercept-url pattern="/login/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+        <security:intercept-url pattern="/**" access="IS_AUTHENTICATED_FULLY" />
         <security:form-login login-page="/login/auth" default-target-url="/"
                              authentication-failure-url="/login/denied"/>
         <security:logout logout-url="/logout/logout"/>
     </security:http>
+
+    <bean id="authenticatedVoter"
+          class="com.hospitalapp.security.util.CustomAuthenticatedVoter" />
+
+    <bean id="av" class="org.springframework.security.access.vote.AuthenticatedVoter"/>
+
+    <bean id="rolev" class="org.springframework.security.access.vote.RoleVoter"/>
+
+    <bean id="accessDecisionManager"
+          class="org.springframework.security.access.vote.AffirmativeBased">
+        <constructor-arg>
+            <list>
+                <ref bean="authenticatedVoter" />
+            </list>
+        </constructor-arg>
+    </bean>
 
     <security:authentication-manager>
         <security:authentication-provider user-service-ref="userDetailService">

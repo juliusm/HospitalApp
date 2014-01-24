@@ -5,7 +5,10 @@ import com.hospitalapp.drugmanager.service.DrugManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("drugCategory")
@@ -30,7 +33,10 @@ public class DrugCategoryController {
     }
 
     @RequestMapping(value = "save", method = RequestMethod.POST)
-    public String save(@ModelAttribute DrugCategory drugCategory){
+    public String save(@Valid DrugCategory drugCategory, BindingResult result){
+        if(result.hasErrors()){
+            return "/drugCategory/create";
+        }
         drugManagerService.saveCategory(drugCategory);
         return "redirect:list";
     }
