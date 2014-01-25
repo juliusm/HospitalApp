@@ -7,27 +7,44 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
 
-@Entity(name = "app_user")
+@Entity(name = "TBL_USER")
 public class User implements UserDetails, Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "USER_ID")
     private Long id;
+
+    @Column(name = "FIRST_NAME")
     private String firstName;
+
+    @Column(name = "MIDDLE_NAME")
     private String middleName;
+
+    @Column(name = "LAST_NAME")
     private String lastName;
+
+    @Column(name = "USERNAME")
     private String username;
+
+    @Column(name = "PASSWORD")
     private String password;
+
+    @Column(name = "ACCOUNT_NON_EXPIRED")
     private boolean accountNonExpired;
+
+    @Column(name = "ACCOUNT_NON_LOCKED")
     private boolean accountNonLocked;
+
+    @Column(name = "CREDENTIALS_NON_EXPIRED")
     private boolean credentialsNonExpired;
+
+    @Column(name = "ENABLED")
     private boolean enabled;
 
-    @ManyToMany(targetEntity=Role.class, fetch = FetchType.EAGER)
-    @JoinTable(name = "user_role",
-            joinColumns = {@JoinColumn(name = "user_id")},
-            inverseJoinColumns = {@JoinColumn(name = "role_id")})
-    private Set<Role> roles = new HashSet<Role>();
+    @ManyToOne
+    @JoinColumn(name = "ROLE_ID")
+    private Role role;
 
     public Long getId() {
         return id;
@@ -61,16 +78,18 @@ public class User implements UserDetails, Serializable {
         this.lastName = lastName;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
+    public Role getRole() {
+        return role;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
+        Set<Role> roles = new HashSet<Role>();
+        roles.add(role);
         return roles;
     }
 
@@ -160,10 +179,7 @@ public class User implements UserDetails, Serializable {
         if (middleName != null ? !middleName.equals(user.middleName) : user.middleName != null) {
             return false;
         }
-        if (password != null ? !password.equals(user.password) : user.password != null) {
-            return false;
-        }
-        if (getRoles() != null ? !getRoles().equals(user.getRoles()) : user.getRoles() != null) {
+        if (role != null ? !role.equals(user.role) : user.role != null) {
             return false;
         }
         if (username != null ? !username.equals(user.username) : user.username != null) {
@@ -179,12 +195,11 @@ public class User implements UserDetails, Serializable {
         result = 31 * result + (middleName != null ? middleName.hashCode() : 0);
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         result = 31 * result + (username != null ? username.hashCode() : 0);
-        result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + (accountNonExpired ? 1 : 0);
         result = 31 * result + (accountNonLocked ? 1 : 0);
         result = 31 * result + (credentialsNonExpired ? 1 : 0);
         result = 31 * result + (enabled ? 1 : 0);
-        result = 31 * result + (getRoles() != null ? getRoles().hashCode() : 0);
+        result = 31 * result + (role != null ? role.hashCode() : 0);
         return result;
     }
 }

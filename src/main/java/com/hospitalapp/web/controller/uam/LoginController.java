@@ -10,11 +10,11 @@ public class LoginController {
 
     @RequestMapping(value = "auth", method = RequestMethod.GET)
     public String auth(){
-        return "uam/auth";
+        return "login/auth";
     }
 
     @RequestMapping(value = "denied", method = RequestMethod.GET)
     public String denied(){
-        return "uam/auth";
+        return "login/auth";
     }
 }

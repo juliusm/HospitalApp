@@ -13,6 +13,9 @@ import java.util.Set;
 
 public class CustomAuthenticatedVoter extends AuthenticatedVoter{
 
+    private static final String HOME = "/index.jsp";
+    private static final String LOGOUT = "/logout/logout";
+
     @Override
     public int vote(Authentication authentication, Object object, Collection<ConfigAttribute> attributes){
 
@@ -32,11 +35,15 @@ public class CustomAuthenticatedVoter extends AuthenticatedVoter{
             }
         }
 
-        if(result == ACCESS_GRANTED && filterInvocation != null && loggedIn){
+        if(result == ACCESS_GRANTED
+                && filterInvocation != null
+                && loggedIn
+                && !LOGOUT.equals(filterInvocation.getRequestUrl())
+                && !HOME.equals(filterInvocation.getRequestUrl())){
 
             result = ACCESS_DENIED;
-            String urlToBeAccessed = filterInvocation.getRequestUrl().trim();
             Collection<Role> authorities = (Collection<Role>)authentication.getAuthorities();
+            String urlToBeAccessed = filterInvocation.getRequestUrl().trim();
 
             for(Role role: authorities){
                 Set<Module> modules = role.getModules();
@@ -45,7 +52,7 @@ public class CustomAuthenticatedVoter extends AuthenticatedVoter{
                     Set<Link> links = module.getLinks();
 
                     for(Link link: links){
-                        if(urlToBeAccessed.equals(link.getValue().trim())){
+                        if(urlToBeAccessed.trim().contains(link.getValue().trim())){
                             result = ACCESS_GRANTED;
                         }
                     }

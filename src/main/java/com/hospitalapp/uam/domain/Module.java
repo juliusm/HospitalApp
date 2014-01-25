@@ -6,13 +6,22 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Module implements Serializable {
+@Table(name = "TBL_MODULE")
+public class Module implements Serializable, Comparable<Module> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "MODULE_ID")
     private long id;
+
+    @Column(name = "NAME")
     private String name;
-    @OneToMany(targetEntity=Link.class)
+
+    @ManyToOne
+    @JoinColumn(name = "MODULE_GROUP_ID")
+    private ModuleGroup moduleGroup;
+
+    @OneToMany(mappedBy = "module")
     private Set<Link> links = new HashSet<Link>();
 
     public long getId() {
@@ -29,6 +38,14 @@ public class Module implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public ModuleGroup getModuleGroup() {
+        return moduleGroup;
+    }
+
+    public void setModuleGroup(ModuleGroup moduleGroup) {
+        this.moduleGroup = moduleGroup;
     }
 
     public Set<Link> getLinks() {
@@ -53,6 +70,9 @@ public class Module implements Serializable {
         if (links != null ? !links.equals(module.links) : module.links != null) {
             return false;
         }
+        if (moduleGroup != null ? !moduleGroup.equals(module.moduleGroup) : module.moduleGroup != null) {
+            return false;
+        }
         if (!name.equals(module.name)) {
             return false;
         }
@@ -63,7 +83,13 @@ public class Module implements Serializable {
     @Override
     public int hashCode() {
         int result = name.hashCode();
+        result = 31 * result + (moduleGroup != null ? moduleGroup.hashCode() : 0);
         result = 31 * result + (links != null ? links.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public int compareTo(Module o) {
+        return name.compareTo(o.getName());
     }
 }

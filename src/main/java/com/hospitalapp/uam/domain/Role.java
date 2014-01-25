@@ -8,19 +8,24 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Role implements GrantedAuthority, Serializable {
+@Table(name = "TBL_ROLE")
+public class Role implements GrantedAuthority, Serializable, Comparable<Role> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ROLE_ID")
     private Long id;
+
+    @Column(name = "NAME")
     private String name;
 
-    @ManyToMany
-    @JoinTable(name = "user_role",
-            joinColumns = {@JoinColumn(name = "role_id")},
-            inverseJoinColumns = {@JoinColumn(name = "user_id")})
+    @OneToMany(mappedBy = "role")
     private Set<User> users = new HashSet<User>();
-    @OneToMany(targetEntity=Module.class)
+
+    @ManyToMany
+    @JoinTable(name = "ROLE_MODULE",
+            joinColumns = {@JoinColumn(name = "ROLE_ID")},
+            inverseJoinColumns = {@JoinColumn(name = "MODULE_ID")})
     private Set<Module> modules = new HashSet<Module>();
 
 
@@ -87,5 +92,10 @@ public class Role implements GrantedAuthority, Serializable {
         int result = name.hashCode();
         result = 31 * result + (modules != null ? modules.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public int compareTo(Role o) {
+        return name.compareTo(o.getName());
     }
 }

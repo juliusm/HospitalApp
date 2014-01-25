@@ -5,6 +5,10 @@
     <title>Hospital App | Drug Categories</title>
 </head>
 <body>
+<a href="/">Back to Home</a> |
+<a href="/logout/logout">Logout</a>
+<br><br>
+<b>Drug Categories</b>
 <table>
     <tr>
         <th>ID</th>

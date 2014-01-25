@@ -2,18 +2,23 @@ package com.hospitalapp.uam.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Collections;
+import java.util.List;
 
 @Entity
-public class ModuleGroup implements Serializable {
+@Table(name = "TBL_MODULE_GROUP")
+public class ModuleGroup implements Serializable, Comparable<ModuleGroup> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "MODULE_GROUP_ID")
     private long id;
+
+    @Column(name = "NAME")
     private String name;
-    @OneToMany(targetEntity=Module.class)
-    private Set<Module> modules = new HashSet<Module>();
+
+    @OneToMany(mappedBy = "moduleGroup")
+    private List<Module> modules;
 
     public long getId() {
         return id;
@@ -31,11 +36,12 @@ public class ModuleGroup implements Serializable {
         this.name = name;
     }
 
-    public Set<Module> getModules() {
+    public List<Module> getModules() {
+        Collections.sort(modules);
         return modules;
     }
 
-    public void setModules(Set<Module> modules) {
+    public void setModules(List<Module> modules) {
         this.modules = modules;
     }
 
@@ -63,5 +69,10 @@ public class ModuleGroup implements Serializable {
         int result = name.hashCode();
         result = 31 * result + (modules != null ? modules.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public int compareTo(ModuleGroup o) {
+        return name.compareTo(o.getName());
     }
 }

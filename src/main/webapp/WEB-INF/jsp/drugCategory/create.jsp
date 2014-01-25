@@ -7,6 +7,11 @@
     <title>Hospital App | Add Drug Category</title>
 </head>
 <body>
+<a href="/">Back to Home</a> |
+<a href="/drugCategory/list">Back to List</a> |
+<a href="/logout/logout">Logout</a>
+<br/>
+<br/>
 <springform:form modelAttribute="drugCategory" action="/drugCategory/save">
 <table>
     <tr>

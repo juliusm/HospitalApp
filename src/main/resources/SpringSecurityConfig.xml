@@ -18,12 +18,12 @@
         <security:logout logout-url="/logout/logout"/>
     </security:http>
 
+    <bean id="passwordEncoder" class="org.springframework.security.authentication.encoding.ShaPasswordEncoder">
+        <constructor-arg value="256"/>
+    </bean>
+
     <bean id="authenticatedVoter"
           class="com.hospitalapp.security.util.CustomAuthenticatedVoter" />
-
-    <bean id="av" class="org.springframework.security.access.vote.AuthenticatedVoter"/>
-
-    <bean id="rolev" class="org.springframework.security.access.vote.RoleVoter"/>
 
     <bean id="accessDecisionManager"
           class="org.springframework.security.access.vote.AffirmativeBased">
@@ -35,8 +35,8 @@
     </bean>
 
     <security:authentication-manager>
-        <security:authentication-provider user-service-ref="userDetailService">
-            <security:password-encoder hash="md5" />
+        <security:authentication-provider user-service-ref="userService">
+            <security:password-encoder hash="sha-256" />
         </security:authentication-provider>
     </security:authentication-manager>
 </beans>

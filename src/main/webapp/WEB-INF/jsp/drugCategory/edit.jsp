@@ -7,11 +7,18 @@
     <title>Hospital App | Add Drug Category</title>
 </head>
 <body>
+<a href="/">Back to Home</a> |
+<a href="/drugCategory/list">Back to List</a> |
+<a href="/logout/logout">Logout</a>
+<br/>
+<br/>
+<b>Edit Drug Category</b>
+<br>
 <springform:form modelAttribute="drugCategory" action="/drugCategory/update">
     <springform:hidden path="id"/>
     <table>
         <tr>
-            <td><springform:label path="name"/></td>
+            <td><springform:label path="name">Name: </springform:label></td>
             <td><springform:input path="name"/></td>
             <td><springform:errors path="name"/></td>
         </tr>
