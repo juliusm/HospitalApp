@@ -24,24 +24,14 @@ public class RoleController {
 
     private static final Logger LOGGER = Logger.getLogger(RoleController.class.getName());
 
+    @Autowired
     private RoleService roleService;
-    private ModuleService moduleService;
+
+    @Autowired
     private ModuleGroupService moduleGroupService;
 
     @Autowired
-    public void setRoleService(RoleService roleService){
-        this.roleService = roleService;
-    }
-
-    @Autowired
-    public void setModuleService(ModuleService moduleService){
-        this.moduleService = moduleService;
-    }
-
-    @Autowired
-    public void setModuleGroupService(ModuleGroupService moduleGroupService){
-        this.moduleGroupService = moduleGroupService;
-    }
+    private ModuleService moduleService;
 
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
@@ -52,7 +42,6 @@ public class RoleController {
                     public void setAsText(String text) {
                         Long id = new Long(text);
                         Module module = moduleService.findById(id);
-                        module.setId(id);
                         super.setValue(module);
                     }
                 });
@@ -94,7 +83,7 @@ public class RoleController {
     public String update(@ModelAttribute Role role, ModelMap modelMap){
         try {
             roleService.update(role);
-            return "redirect: get/"+role.getId();
+            return "redirect:get/"+role.getId();
         }catch (EntryNotFoundException e){
             modelMap.addAttribute("role", role);
             return "role/edit";

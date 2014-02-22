@@ -76,6 +76,12 @@
             <artifactId>spring-orm</artifactId>
             <version>${spring.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
         <!--Spring Security-->
         <dependency>
             <groupId>org.springframework.security</groupId>
@@ -117,9 +123,21 @@
         </dependency>
 
         <dependency>
+            <groupId>net.sf.ehcache</groupId>
+            <artifactId>ehcache-core</artifactId>
+            <version>2.5.0</version>
+        </dependency>
+
+        <dependency>
             <groupId>postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>${postgresql.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
         </dependency>
 
     </dependencies>
@@ -141,7 +159,7 @@
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <version>2.1</version>
                 <configuration>
-                    <path>/hospitalApp</path>
+                    <path>/</path>
                 </configuration>
             </plugin>
         </plugins>

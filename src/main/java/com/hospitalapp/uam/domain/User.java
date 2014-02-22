@@ -7,7 +7,8 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
 
-@Entity(name = "TBL_USER")
+@Entity
+@Table(name = "TBL_USER")
 public class User implements UserDetails, Serializable {
 
     @Id
@@ -88,9 +89,14 @@ public class User implements UserDetails, Serializable {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Set<Role> roles = new HashSet<Role>();
-        roles.add(role);
-        return roles;
+        Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
+        authorities.add(new GrantedAuthority() {
+            @Override
+            public String getAuthority() {
+                return role.getName();
+            }
+        });
+        return authorities;
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.hospitalapp.web.controller.uam;
 
-import com.hospitalapp.uam.domain.Module;
 import com.hospitalapp.uam.domain.Role;
 import com.hospitalapp.uam.domain.User;
 import com.hospitalapp.uam.service.RoleService;
@@ -82,6 +81,16 @@ public class UserController {
     public String update(@ModelAttribute User user, ModelMap modelMap){
         userService.update(user);
         return "redirect:get/"+user.getId();
+    }
+
+    @RequestMapping(value = "changePassword", method = RequestMethod.GET)
+    public String displayChangePasswordForm(){
+        return "";
+    }
+
+    @RequestMapping(value = "changePassword", method = RequestMethod.POST)
+    public String changePassword(){
+        return "";
     }
 
     @ModelAttribute("roles")

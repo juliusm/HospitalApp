@@ -38,9 +38,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         if(user == null){
             throw new UsernameNotFoundException("User not found");
         }
-        for(Module module: user.getRole().getModules()){
-            module.getLinks();
-        }
         return user;
     }
 

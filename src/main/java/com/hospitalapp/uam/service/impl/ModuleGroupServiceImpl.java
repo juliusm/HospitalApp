@@ -13,12 +13,8 @@ import java.util.List;
 @Transactional
 public class ModuleGroupServiceImpl implements ModuleGroupService{
 
-    private ModuleGroupDAO moduleGroupDAO;
-
     @Autowired
-    public void setModuleGroupDAO(ModuleGroupDAO moduleGroupDAO){
-        this.moduleGroupDAO = moduleGroupDAO;
-    }
+    private ModuleGroupDAO moduleGroupDAO;
 
     @Override
     public List<ModuleGroup> list() {

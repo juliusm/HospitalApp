@@ -1,60 +1,59 @@
 package com.hospitalapp.security.util;
 
-import com.hospitalapp.uam.domain.Link;
-import com.hospitalapp.uam.domain.Module;
-import com.hospitalapp.uam.domain.Role;
+import com.hospitalapp.uam.service.AuthorizationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.vote.AuthenticatedVoter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.access.ConfigAttribute;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.FilterInvocation;
 
 import java.util.Collection;
-import java.util.Set;
+import java.util.List;
+import java.util.logging.Logger;
 
 public class CustomAuthenticatedVoter extends AuthenticatedVoter{
 
     private static final String HOME = "/index.jsp";
     private static final String LOGOUT = "/logout/logout";
+    private static final Logger LOGGER = Logger.getLogger(CustomAuthenticatedVoter.class.getName());
+
+    @Autowired
+    private AuthorizationService authorizationService;
 
     @Override
     public int vote(Authentication authentication, Object object, Collection<ConfigAttribute> attributes){
 
-        FilterInvocation filterInvocation = null;
+        FilterInvocation filterInvocation;
+        Collection authorities = authentication.getAuthorities();
+        int result = super.vote(authentication, object, attributes);
+        String urlToBeAccessed;
 
         if(object instanceof FilterInvocation){
             filterInvocation = (FilterInvocation)object;
+            urlToBeAccessed = filterInvocation.getRequestUrl();
+        }else {
+            LOGGER.info("Request URL object's type is now " + object.getClass().getName());
+            return ACCESS_DENIED;
         }
 
-        int result = super.vote(authentication, object, attributes);
-        boolean loggedIn = true;
+        for(Object authority: authorities){
+            if(authority instanceof GrantedAuthority){
 
-        for(ConfigAttribute attribute: attributes){
-            if("IS_AUTHENTICATED_ANONYMOUSLY".equals(attribute.getAttribute())){
-                loggedIn = false;
-                break;
-            }
-        }
+                GrantedAuthority grantedAuthority = (GrantedAuthority)authority;
 
-        if(result == ACCESS_GRANTED
-                && filterInvocation != null
-                && loggedIn
-                && !LOGOUT.equals(filterInvocation.getRequestUrl())
-                && !HOME.equals(filterInvocation.getRequestUrl())){
+                if(grantedAuthority.getAuthority() == "ROLE_ANONYMOUS"){
+                    break;
+                }
 
-            result = ACCESS_DENIED;
-            Collection<Role> authorities = (Collection<Role>)authentication.getAuthorities();
-            String urlToBeAccessed = filterInvocation.getRequestUrl().trim();
+                result = ACCESS_DENIED;
 
-            for(Role role: authorities){
-                Set<Module> modules = role.getModules();
-
-                for(Module module: modules){
-                    Set<Link> links = module.getLinks();
-
-                    for(Link link: links){
-                        if(urlToBeAccessed.trim().contains(link.getValue().trim())){
-                            result = ACCESS_GRANTED;
-                        }
+                List<String> allowedUrls = authorizationService.getAllowedUrlsByRoleName(grantedAuthority.getAuthority());
+                for(String urlPattern: allowedUrls){
+                    if (urlToBeAccessed.matches(urlPattern)){
+                        return ACCESS_GRANTED;
+                    } else if (HOME.equals(urlToBeAccessed) || LOGOUT.equals(urlToBeAccessed)){
+                        return ACCESS_GRANTED;
                     }
                 }
             }

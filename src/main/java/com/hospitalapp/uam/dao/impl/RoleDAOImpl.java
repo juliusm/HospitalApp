@@ -4,6 +4,7 @@ import com.hospitalapp.commons.dao.AbstractDAO;
 import com.hospitalapp.uam.dao.RoleDAO;
 import com.hospitalapp.uam.domain.Role;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
@@ -31,6 +32,14 @@ public class RoleDAOImpl extends AbstractDAO implements RoleDAO{
     public Role findById(long id) {
         Session session = getSessionFactory().getCurrentSession();
         return (Role)session.get(Role.class, id);
+    }
+
+    public Role findByName(String name){
+        Session session = getSessionFactory().getCurrentSession();
+        Query query = session.createQuery("from Role where name = :name");
+        query.setParameter("name", name);
+        return (Role)query.uniqueResult();
+
     }
 
     @Override

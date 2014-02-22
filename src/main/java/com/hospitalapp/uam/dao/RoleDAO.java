@@ -12,5 +12,7 @@ public interface RoleDAO {
 
     Role findById(long id);
 
+    Role findByName(String name);
+
     void update(Role role);
 }

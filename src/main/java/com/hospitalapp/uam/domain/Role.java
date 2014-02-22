@@ -1,15 +1,12 @@
 package com.hospitalapp.uam.domain;
 
-import org.springframework.security.core.GrantedAuthority;
-
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "TBL_ROLE")
-public class Role implements GrantedAuthority, Serializable, Comparable<Role> {
+public class Role implements Serializable, Comparable<Role> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,13 +17,13 @@ public class Role implements GrantedAuthority, Serializable, Comparable<Role> {
     private String name;
 
     @OneToMany(mappedBy = "role")
-    private Set<User> users = new HashSet<User>();
+    private Set<User> users;
 
     @ManyToMany
     @JoinTable(name = "ROLE_MODULE",
             joinColumns = {@JoinColumn(name = "ROLE_ID")},
             inverseJoinColumns = {@JoinColumn(name = "MODULE_ID")})
-    private Set<Module> modules = new HashSet<Module>();
+    private Set<Module> modules;
 
 
     public Long getId() {
@@ -62,11 +59,6 @@ public class Role implements GrantedAuthority, Serializable, Comparable<Role> {
     }
 
     @Override
-    public String getAuthority() {
-        return "ROLE_"+name.replace(' ', '_').toUpperCase();
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -77,9 +69,6 @@ public class Role implements GrantedAuthority, Serializable, Comparable<Role> {
 
         Role role = (Role) o;
 
-        if (modules != null ? !modules.equals(role.modules) : role.modules != null) {
-            return false;
-        }
         if (!name.equals(role.name)) {
             return false;
         }
@@ -90,7 +79,6 @@ public class Role implements GrantedAuthority, Serializable, Comparable<Role> {
     @Override
     public int hashCode() {
         int result = name.hashCode();
-        result = 31 * result + (modules != null ? modules.hashCode() : 0);
         return result;
     }
 
