@@ -14,7 +14,7 @@
 <br/>
 <b>Edit Drug Category</b>
 <br>
-<springform:form modelAttribute="drugCategory" action="/drugCategory/update">
+<springform:form modelAttribute="drugCategoryDTO" action="/drugCategory/update">
     <springform:hidden path="id"/>
     <table>
         <tr>

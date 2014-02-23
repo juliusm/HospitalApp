@@ -52,7 +52,10 @@ public class DrugCategoryController {
     }
 
     @RequestMapping(value = "update", method = RequestMethod.POST)
-    public String update(@ModelAttribute DrugCategoryDTO drugCategoryDTO){
+    public String update(@Valid DrugCategoryDTO drugCategoryDTO, BindingResult result){
+        if(result.hasErrors()){
+            return "/drugCategory/edit";
+        }
         drugCategoryService.update(drugCategoryDTO);
         return "redirect:list";
     }
