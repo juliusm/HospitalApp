@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.LinkedList;
 import java.util.List;
 
-@Service("drugManagerService")
+@Service("drugCategoryService")
 @Transactional
 public class DrugCategoryServiceImpl implements DrugCategoryService {
 
