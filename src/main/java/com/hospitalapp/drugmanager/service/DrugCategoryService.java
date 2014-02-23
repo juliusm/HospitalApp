@@ -1,18 +1,18 @@
 package com.hospitalapp.drugmanager.service;
 
-import com.hospitalapp.drugmanager.domain.DrugCategory;
+import com.hospitalapp.drugmanager.dto.DrugCategoryDTO;
 
 import java.util.List;
 
 public interface DrugCategoryService {
 
-    List<DrugCategory> list();
+    List<DrugCategoryDTO> list();
 
-    void save(DrugCategory drugCategory);
+    void save(DrugCategoryDTO drugCategory);
 
-    DrugCategory findById(Long id);
+    DrugCategoryDTO findById(Long id);
 
-    void update(DrugCategory drugCategory);
+    void update(DrugCategoryDTO drugCategory);
 
-    void delete(DrugCategory drugCategory);
+    void delete(DrugCategoryDTO drugCategory);
 }
