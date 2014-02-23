@@ -1,19 +1,19 @@
 package com.hospitalapp.uam.service;
 
-import com.hospitalapp.uam.domain.User;
+import com.hospitalapp.uam.dto.UserDTO;
 
 import java.util.List;
 
 public interface UserService{
 
-    List<User> list();
+    List<UserDTO> list();
 
-    User findById(long id);
+    UserDTO findById(long id);
 
-    void save(User user);
+    void save(UserDTO userDTO);
 
-    void update(User user);
+    void update(UserDTO userDTO);
 
-    void delete(User user);
+    void delete(UserDTO userDTO);
 
 }

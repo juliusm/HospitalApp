@@ -14,6 +14,6 @@ public class DrugCategoryDTOValidator implements Validator {
 
     @Override
     public void validate(Object o, Errors errors) {
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "default.field.required", new String[]{"Name"});
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "default.input.required");
     }
 }

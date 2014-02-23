@@ -30,7 +30,7 @@
     </tr>
     <tr>
         <td>Role: </td>
-        <td><c:out value="${user.role.name}"/></td>
+        <td><c:out value="${user.roleName}"/></td>
     </tr>
 </table>
 <a href="/user/edit/${user.id}">Edit</a>

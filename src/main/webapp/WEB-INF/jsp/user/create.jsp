@@ -12,49 +12,55 @@
 <br/>
 <br/>
 <b>Create User</b>
-<form:form modelAttribute="user" action="/user/save" method="post">
+<form:form modelAttribute="userDTO" action="/user/save" method="post">
     <table>
         <tr>
             <td>First Name: </td>
             <td><form:input path="firstName"/></td>
+            <td><form:errors path="firstName"/></td>
         </tr>
         <tr>
             <td>Middle Name: </td>
             <td><form:input path="middleName"/></td>
+            <td><form:errors path="middleName"/></td>
         </tr>
         <tr>
             <td>Last Name: </td>
             <td><form:input path="lastName"/></td>
+            <td><form:errors path="lastName"/></td>
         </tr>
         <tr>
             <td>Username: </td>
             <td><form:input path="username"/></td>
+            <td><form:errors path="username"/></td>
         </tr>
         <tr>
             <td>Password: </td>
-            <td><input type="password" name="password"/></td>
+            <td><form:password path="username"/></td>
+            <td><form:errors path="username"/></td>
         </tr>
         <tr>
             <td>Role: </td>
             <td>
-                <form:select path="role" items="${roles}" itemValue="id" itemLabel="name" />
+                <form:select path="roleId" items="${roles}" itemValue="id" itemLabel="name" />
             </td>
+            <td><form:errors path="roleId"/></td>
         </tr>
         <tr>
             <td>Account Active</td>
-            <td><form:checkbox path="accountNonExpired"/></td>
+            <td><form:checkbox path="accountNonExpired" value="true"/></td>
         </tr>
         <tr>
             <td>Account Non-locked</td>
-            <td><form:checkbox path="accountNonLocked"/></td>
+            <td><form:checkbox path="accountNonLocked" value="true"/></td>
         </tr>
         <tr>
             <td>Credentials Active</td>
-            <td><form:checkbox path="credentialsNonExpired"/></td>
+            <td><form:checkbox path="credentialsNonExpired" value="true"/></td>
         </tr>
         <tr>
             <td>Enable</td>
-            <td><form:checkbox path="enabled"/></td>
+            <td><form:checkbox path="enabled" value="true"/></td>
         </tr>
     </table>
     <input type="submit" name="submit" value="">

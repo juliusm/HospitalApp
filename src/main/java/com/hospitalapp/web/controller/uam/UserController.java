@@ -2,6 +2,8 @@ package com.hospitalapp.web.controller.uam;
 
 import com.hospitalapp.uam.domain.Role;
 import com.hospitalapp.uam.domain.User;
+import com.hospitalapp.uam.dto.UserDTO;
+import com.hospitalapp.uam.dto.validator.UserDTOValidator;
 import com.hospitalapp.uam.service.RoleService;
 import com.hospitalapp.uam.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.beans.PropertyEditorSupport;
 import java.util.List;
 
@@ -18,69 +21,59 @@ import java.util.List;
 @RequestMapping("user")
 public class UserController {
 
+    @Autowired
     private UserService userService;
+
+    @Autowired
     private RoleService roleService;
-
-    @Autowired
-    public void setUserService(UserService userService){
-        this.userService = userService;
-    }
-
-    @Autowired
-    public void setRoleService(RoleService roleService){
-        this.roleService = roleService;
-    }
 
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
-
-        binder.registerCustomEditor(Role.class, "role",
-                new PropertyEditorSupport() {
-                    @Override
-                    public void setAsText(String text) {
-                        Long id = new Long(text);
-                        Role role = roleService.findById(id);
-                        super.setValue(role);
-                    }
-                });
+        binder.addValidators(new UserDTOValidator());
     }
 
     @RequestMapping(value = "create", method = RequestMethod.GET)
-    public String create(@ModelAttribute User user){
+    public String create(@ModelAttribute UserDTO userDTO){
         return "user/create";
     }
 
     @RequestMapping(value = "save", method = RequestMethod.POST)
-    public String save(@ModelAttribute User user, BindingResult result){
-        userService.save(user);
+    public String save(@Valid UserDTO userDTO, BindingResult result){
+        if(result.hasErrors()){
+            return "user/create";
+        }
+        userService.save(userDTO);
         return "redirect:list";
     }
 
     @RequestMapping(value = "list", method = RequestMethod.GET)
     public String list(ModelMap modelMap){
-        List<User> users = userService.list();
+        List<UserDTO> users = userService.list();
         modelMap.addAttribute("users", users);
         return "user/list";
     }
 
     @RequestMapping(value = "get/{id}", method = RequestMethod.GET)
     public String get(@PathVariable Long id, ModelMap modelMap){
-        User user = userService.findById(id);
+        UserDTO user = userService.findById(id);
         modelMap.addAttribute("user", user);
         return "user/get";
     }
 
     @RequestMapping(value = "edit/{id}")
     public String edit(@PathVariable Long id, ModelMap modelMap){
-        User user = userService.findById(id);
-        modelMap.addAttribute("user", user);
+        UserDTO userDTO = userService.findById(id);
+        modelMap.addAttribute("userDTO", userDTO);
         return "/user/edit";
     }
 
     @RequestMapping(value = "update", method = RequestMethod.POST)
-    public String update(@ModelAttribute User user, ModelMap modelMap){
-        userService.update(user);
-        return "redirect:get/"+user.getId();
+    public String update(@ModelAttribute UserDTO userDTO, BindingResult result){
+        if(result.hasErrors()){
+            return "/user/edit";
+        }
+        userService.update(userDTO);
+        return "redirect:get/"+userDTO.getId();
     }
 
     @RequestMapping(value = "changePassword", method = RequestMethod.GET)

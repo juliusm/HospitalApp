@@ -24,7 +24,7 @@
         <td><c:out value="${user.middleName}"/></td>
         <td><c:out value="${user.lastName}"/></td>
         <td><c:out value="${user.username}"/></td>
-        <td><c:out value="${user.role.name}"/></td>
+        <td><c:out value="${user.roleName}"/></td>
         <td><a href="/user/get/${user.id}">View</a></td>
     </tr>    
     </c:forEach>
