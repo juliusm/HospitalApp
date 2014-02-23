@@ -9,7 +9,7 @@ public class UserDTO {
     private String firstName;
     private String middleName;
     private String lastName;
-    private String userName;
+    private String username;
     private String password;
     private String roleId;
     private String roleName;
@@ -50,12 +50,12 @@ public class UserDTO {
         this.lastName = lastName;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -116,10 +116,13 @@ public class UserDTO {
 
     public User convertToDomain(){
         User user = new User();
+        if(id != null && !id.trim().isEmpty()){
+            user.setId(new Long(id));
+        }
         user.setFirstName(firstName);
         user.setMiddleName(middleName);
         user.setLastName(lastName);
-        user.setUsername(userName);
+        user.setUsername(username);
         user.setPassword(password);
         user.setAccountNonLocked(accountNonLocked);
         user.setAccountNonExpired(accountNonExpired);
@@ -134,10 +137,11 @@ public class UserDTO {
 
     public static UserDTO convertToDTO(User user){
         UserDTO userDTO = new UserDTO();
+        userDTO.setId(user.getId().toString());
         userDTO.setFirstName(user.getFirstName());
         userDTO.setMiddleName(user.getMiddleName());
         userDTO.setLastName(user.getLastName());
-        userDTO.setUserName(user.getUsername());
+        userDTO.setUsername(user.getUsername());
         userDTO.setAccountNonLocked(user.isAccountNonLocked());
         userDTO.setAccountNonExpired(user.isAccountNonExpired());
         userDTO.setCredentialsNonExpired(user.isCredentialsNonExpired());

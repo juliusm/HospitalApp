@@ -43,7 +43,7 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO{
 
     @Override
     public void update(User user) {
-        getSessionFactory().getCurrentSession().update(user);
+        getSessionFactory().getCurrentSession().merge(user);
     }
 
     @Override

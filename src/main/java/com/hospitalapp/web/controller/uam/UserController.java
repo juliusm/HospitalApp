@@ -63,12 +63,13 @@ public class UserController {
     @RequestMapping(value = "edit/{id}")
     public String edit(@PathVariable Long id, ModelMap modelMap){
         UserDTO userDTO = userService.findById(id);
+        userDTO.setPassword("password");
         modelMap.addAttribute("userDTO", userDTO);
         return "/user/edit";
     }
 
     @RequestMapping(value = "update", method = RequestMethod.POST)
-    public String update(@ModelAttribute UserDTO userDTO, BindingResult result){
+    public String update(@Valid UserDTO userDTO, BindingResult result){
         if(result.hasErrors()){
             return "/user/edit";
         }

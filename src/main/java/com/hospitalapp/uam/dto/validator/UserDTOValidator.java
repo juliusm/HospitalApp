@@ -14,11 +14,10 @@ public class UserDTOValidator implements Validator {
 
     @Override
     public void validate(Object o, Errors errors) {
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstName", "default.field.required");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "middleName", "default.field.required");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastName", "default.field.required");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "userName", "default.field.required");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "default.field.required");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstName", "default.input.required");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastName", "default.input.required");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "default.input.required");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "default.input.required");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "roleId", "default.select.required");
     }
 }

@@ -73,8 +73,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         User user = userDTO.convertToDomain();
         User persistedUser = userDAO.findById(user.getId());
         user.setPassword(persistedUser.getPassword());
-        Role role = roleDAO.findById(user.getRole().getId());
-        user.setRole(role);
+        if(!user.getRole().getId().equals(persistedUser.getRole().getId())){
+            Role role = roleDAO.findById(user.getRole().getId());
+            user.setRole(role);
+        }
         userDAO.update(user);
     }
 

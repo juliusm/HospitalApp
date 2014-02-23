@@ -8,35 +8,44 @@
 <body>
 <a href="/">Back to Home</a> |
 <a href="/user/list">Back to List</a> |
-<a href="/user/get/${role.id}">Cancel</a> |
+<a href="/user/get/${userDTO.id}">Cancel</a> |
 <a href="/logout/logout">Logout</a>
 <br/>
 <br/>
 <b>Edit User</b>
-<form:form modelAttribute="user" action="/user/update" method="post">
+<form:form modelAttribute="userDTO" action="/user/update" method="post">
 <form:hidden path="id"/>
+<form:hidden path="password"/>
 <table>
     <tr>
         <td>First Name: </td>
         <td><form:input path="firstName"/></td>
+        <td><form:errors path="firstName"/></td>
     </tr>
     <tr>
         <td>Middle Name: </td>
         <td><form:input path="middleName"/></td>
+        <td><form:errors path="middleName"/></td>
     </tr>
     <tr>
         <td>Last Name: </td>
         <td><form:input path="lastName"/></td>
+        <td><form:errors path="lastName"/></td>
     </tr>
     <tr>
         <td>Username: </td>
         <td><form:input path="username"/></td>
+        <td><form:errors path="username"/></td>
     </tr>
     <tr>
         <td>Role: </td>
         <td>
-            <form:select path="role" items="${roles}" itemValue="id" itemLabel="name" />
+            <form:select path="roleId">
+                <form:option value="" label="Please Select..."/>
+                <form:options items="${roles}" itemValue="id" itemLabel="name" />
+            </form:select>
         </td>
+        <td><form:errors path="roleId"/></td>
     </tr>
     <tr>
         <td>Account Active</td>

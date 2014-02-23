@@ -36,13 +36,16 @@
         </tr>
         <tr>
             <td>Password: </td>
-            <td><form:password path="username"/></td>
-            <td><form:errors path="username"/></td>
+            <td><form:password path="password"/></td>
+            <td><form:errors path="password"/></td>
         </tr>
         <tr>
             <td>Role: </td>
             <td>
-                <form:select path="roleId" items="${roles}" itemValue="id" itemLabel="name" />
+                <form:select path="roleId">
+                    <form:option value="" label="Please Select..."/>
+                    <form:options items="${roles}" itemValue="id" itemLabel="name" />
+                </form:select>
             </td>
             <td><form:errors path="roleId"/></td>
         </tr>
@@ -63,7 +66,7 @@
             <td><form:checkbox path="enabled" value="true"/></td>
         </tr>
     </table>
-    <input type="submit" name="submit" value="">
+    <input type="submit" name="submit" value="Submit">
 </form:form>
 </body>
 </html>
