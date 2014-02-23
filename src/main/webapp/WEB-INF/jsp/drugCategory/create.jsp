@@ -12,12 +12,12 @@
 <a href="/logout/logout">Logout</a>
 <br/>
 <br/>
-<springform:form modelAttribute="drugCategory" action="/drugCategory/save">
+<springform:form modelAttribute="drugCategoryDTO" action="/drugCategory/save">
 <table>
     <tr>
         <td><springform:label path="name">Name:</springform:label></td>
         <td><springform:input path="name"/></td>
-        <td><springform:errors path="name"/></td>
+        <td><springform:errors path="name" cssClass="error" /></td>
     </tr>
     <tr>
         <td colspan="2" align="center">
