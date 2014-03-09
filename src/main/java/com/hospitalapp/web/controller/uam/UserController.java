@@ -60,7 +60,7 @@ public class UserController {
         return "user/get";
     }
 
-    @RequestMapping(value = "edit/{id}")
+    @RequestMapping(value = "edit/{id}", method = RequestMethod.GET)
     public String edit(@PathVariable Long id, ModelMap modelMap){
         UserDTO userDTO = userService.findById(id);
         userDTO.setPassword("password");

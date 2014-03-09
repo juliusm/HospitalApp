@@ -11,6 +11,16 @@
       <hibernate.version>4.2.0.Final</hibernate.version>
       <jdk.version>1.6</jdk.version>
       <spring.version>4.0.0.RELEASE</spring.version>
+      <spring-security.version>3.2.0.RELEASE</spring-security.version>
+      <servlet.version>3.0.1</servlet.version>
+      <jstl.version>1.2</jstl.version>
+      <junit.version>4.7</junit.version>
+      <ehcache.version>2.5.0</ehcache.version>
+      <log4j.version>1.2.17</log4j.version>
+      <java-validation.version>1.1.0.Final</java-validation.version>
+      <hibernate-validator.version>5.0.1.Final</hibernate-validator.version>
+      <commons-dbcp.version>1.4</commons-dbcp.version>
+      <javaassist.version>3.12.1.GA</javaassist.version>
       <postgresql.version>9.1-901.jdbc4</postgresql.version>
   </properties>
 
@@ -32,25 +42,25 @@
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
-            <version>1.1.0.Final</version>
+            <version>${java-validation.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>5.0.1.Final</version>
+            <version>${hibernate-validator.version}</version>
         </dependency>
 
         <dependency>
             <groupId>commons-dbcp</groupId>
             <artifactId>commons-dbcp</artifactId>
-            <version>1.4</version>
+            <version>${commons-dbcp.version}</version>
         </dependency>
 
         <dependency>
             <groupId>javassist</groupId>
             <artifactId>javassist</artifactId>
-            <version>3.12.1.GA</version>
+            <version>${javaassist.version}</version>
         </dependency>
         <!-- SPRING -->
         <dependency>
@@ -86,46 +96,40 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-web</artifactId>
-            <version>3.2.0.RELEASE</version>
+            <version>${spring-security.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-config</artifactId>
-            <version>3.2.0.RELEASE</version>
-        </dependency>
-        <!-- CGLIB is required to process @Configuration classes -->
-        <dependency>
-            <groupId>cglib</groupId>
-            <artifactId>cglib</artifactId>
-            <version>2.2.2</version>
+            <version>${spring-security.version}</version>
         </dependency>
         <!-- Servlet API and JSTL -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>3.0.1</version>
+            <version>${servlet.version}</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>jstl</groupId>
             <artifactId>jstl</artifactId>
-            <version>1.2</version>
+            <version>${jstl.version}</version>
         </dependency>
 
         <!-- Test -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.7</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>net.sf.ehcache</groupId>
             <artifactId>ehcache-core</artifactId>
-            <version>2.5.0</version>
+            <version>${ehcache.version}</version>
         </dependency>
 
         <dependency>
@@ -137,7 +141,7 @@
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
-            <version>1.2.17</version>
+            <version>${log4j.version}</version>
         </dependency>
 
     </dependencies>
