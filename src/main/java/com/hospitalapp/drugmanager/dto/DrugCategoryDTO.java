@@ -1,8 +1,8 @@
 package com.hospitalapp.drugmanager.dto;
 
-import com.hospitalapp.drugmanager.domain.DrugCategory;
+import java.io.Serializable;
 
-public class DrugCategoryDTO {
+public class DrugCategoryDTO implements Serializable {
 
     private String id;
     private String name;
@@ -21,21 +21,5 @@ public class DrugCategoryDTO {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public DrugCategory convertToDomain(){
-        DrugCategory drugCategory = new DrugCategory();
-        if(id != null && !id.trim().isEmpty()){
-            drugCategory.setId(new Long(id));
-        }
-        drugCategory.setName(name);
-        return drugCategory;
-    }
-
-    public static DrugCategoryDTO convertToDTO(DrugCategory drugCategory){
-        DrugCategoryDTO drugCategoryDTO = new DrugCategoryDTO();
-        drugCategoryDTO.setId(drugCategory.getId().toString());
-        drugCategoryDTO.setName(drugCategory.getName());
-        return drugCategoryDTO;
     }
 }

@@ -1,6 +1,6 @@
 package com.hospitalapp.uam.service;
 
-import com.hospitalapp.commons.Exception.EntryNotFoundException;
+import com.hospitalapp.commons.exception.EntryNotFoundException;
 import com.hospitalapp.uam.domain.Role;
 
 import java.util.List;

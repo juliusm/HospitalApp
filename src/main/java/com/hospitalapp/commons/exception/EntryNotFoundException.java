@@ -1,4 +1,4 @@
-package com.hospitalapp.commons.Exception;
+package com.hospitalapp.commons.exception;
 
 public class EntryNotFoundException extends Exception{
 

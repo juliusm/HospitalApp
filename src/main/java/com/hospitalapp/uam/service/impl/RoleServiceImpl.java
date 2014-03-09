@@ -1,6 +1,6 @@
 package com.hospitalapp.uam.service.impl;
 
-import com.hospitalapp.commons.Exception.EntryNotFoundException;
+import com.hospitalapp.commons.exception.EntryNotFoundException;
 import com.hospitalapp.uam.dao.RoleDAO;
 import com.hospitalapp.uam.domain.Role;
 import com.hospitalapp.uam.service.RoleService;

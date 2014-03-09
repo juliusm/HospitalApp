@@ -2,10 +2,10 @@ package com.hospitalapp.uam.service.impl;
 
 import com.hospitalapp.uam.dao.RoleDAO;
 import com.hospitalapp.uam.dao.UserDAO;
-import com.hospitalapp.uam.domain.Module;
 import com.hospitalapp.uam.domain.Role;
 import com.hospitalapp.uam.domain.User;
 import com.hospitalapp.uam.dto.UserDTO;
+import com.hospitalapp.uam.dto.converter.UserConverter;
 import com.hospitalapp.uam.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -15,7 +15,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.security.MessageDigest;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -46,7 +45,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         List<User> users = userDAO.list();
         List<UserDTO> userDTOs = new LinkedList<UserDTO>();
         for(User user: users){
-            UserDTO dto = UserDTO.convertToDTO(user);
+            UserDTO dto = UserConverter.convertToDTO(user);
             userDTOs.add(dto);
         }
         return userDTOs;
@@ -55,14 +54,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public UserDTO findById(long id) {
         User user = userDAO.findById(id);
-        return UserDTO.convertToDTO(user);
+        return UserConverter.convertToDTO(user);
     }
 
     @Override
     public void save(UserDTO userDTO) {
         String hashedPassword = passwordEncoder.encodePassword(userDTO.getPassword(), null);
         userDTO.setPassword(hashedPassword);
-        User user = userDTO.convertToDomain();
+        User user = UserConverter.convertToDomain(userDTO);
         Role role = roleDAO.findById(user.getRole().getId());
         user.setRole(role);
         userDAO.save(user);
@@ -70,7 +69,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public void update(UserDTO userDTO) {
-        User user = userDTO.convertToDomain();
+        User user = UserConverter.convertToDomain(userDTO);
         User persistedUser = userDAO.findById(user.getId());
         user.setPassword(persistedUser.getPassword());
         if(!user.getRole().getId().equals(persistedUser.getRole().getId())){
@@ -82,7 +81,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public void delete(UserDTO userDTO) {
-        User user = userDTO.convertToDomain();
+        User user = UserConverter.convertToDomain(userDTO);
         userDAO.delete(user);
     }
 }

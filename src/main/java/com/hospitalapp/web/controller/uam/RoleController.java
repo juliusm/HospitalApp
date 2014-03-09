@@ -1,6 +1,6 @@
 package com.hospitalapp.web.controller.uam;
 
-import com.hospitalapp.commons.Exception.EntryNotFoundException;
+import com.hospitalapp.commons.exception.EntryNotFoundException;
 import com.hospitalapp.uam.domain.Module;
 import com.hospitalapp.uam.domain.ModuleGroup;
 import com.hospitalapp.uam.domain.Role;

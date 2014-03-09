@@ -1,8 +1,5 @@
 package com.hospitalapp.uam.dto;
 
-import com.hospitalapp.uam.domain.Role;
-import com.hospitalapp.uam.domain.User;
-
 public class UserDTO {
 
     private String id;
@@ -112,44 +109,5 @@ public class UserDTO {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
-    }
-
-    public User convertToDomain(){
-        User user = new User();
-        if(id != null && !id.trim().isEmpty()){
-            user.setId(new Long(id));
-        }
-        user.setFirstName(firstName);
-        user.setMiddleName(middleName);
-        user.setLastName(lastName);
-        user.setUsername(username);
-        user.setPassword(password);
-        user.setAccountNonLocked(accountNonLocked);
-        user.setAccountNonExpired(accountNonExpired);
-        user.setCredentialsNonExpired(credentialsNonExpired);
-        user.setEnabled(enabled);
-        Role role = new Role();
-        role.setId(new Long(roleId));
-        role.setName(roleName);
-        user.setRole(role);
-        return user;
-    }
-
-    public static UserDTO convertToDTO(User user){
-        UserDTO userDTO = new UserDTO();
-        userDTO.setId(user.getId().toString());
-        userDTO.setFirstName(user.getFirstName());
-        userDTO.setMiddleName(user.getMiddleName());
-        userDTO.setLastName(user.getLastName());
-        userDTO.setUsername(user.getUsername());
-        userDTO.setAccountNonLocked(user.isAccountNonLocked());
-        userDTO.setAccountNonExpired(user.isAccountNonExpired());
-        userDTO.setCredentialsNonExpired(user.isCredentialsNonExpired());
-        userDTO.setEnabled(user.isEnabled());
-        if(user.getRole() != null){
-            userDTO.setRoleId(user.getRole().getId().toString());
-            userDTO.setRoleName(user.getRole().getName());
-        }
-        return userDTO;
     }
 }

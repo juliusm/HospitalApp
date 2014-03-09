@@ -42,7 +42,7 @@ public class CustomAuthenticatedVoter extends AuthenticatedVoter{
 
                 GrantedAuthority grantedAuthority = (GrantedAuthority)authority;
 
-                if(grantedAuthority.getAuthority() == "ROLE_ANONYMOUS"){
+                if("ROLE_ANONYMOUS".equals(grantedAuthority.getAuthority())){
                     break;
                 }
 
