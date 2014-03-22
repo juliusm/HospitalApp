@@ -18,9 +18,7 @@
     </context:component-scan>
 
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="location">
-            <value>classpath:database.properties</value>
-        </property>
+        <property name="location" value="file:${user.home}/hospitalapp/database.properties"/>
     </bean>
 
     <bean id="dataSource"
