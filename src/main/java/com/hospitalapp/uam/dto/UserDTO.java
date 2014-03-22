@@ -1,6 +1,8 @@
 package com.hospitalapp.uam.dto;
 
-public class UserDTO {
+import java.io.Serializable;
+
+public class UserDTO implements Serializable {
 
     private String id;
     private String firstName;
